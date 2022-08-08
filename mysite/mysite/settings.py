@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookmark',  # app 추가
+    'blog',  # app 추가
+    
     
 ]
 
