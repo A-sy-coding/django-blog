@@ -4,6 +4,13 @@ from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthA
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
 from .models import Post
+from django.conf import settings
+
+# form 관련 뷰 라이브러리
+from django.views.generic import FormView  
+from blog.forms import PostSearchForm
+from django.db.models import Q  # 검색 기능에 필요
+from django.shortcuts import render
 
 # -- ListView
 class PostLV(ListView):
@@ -15,6 +22,16 @@ class PostLV(ListView):
 # -- DetailView
 class PostDV(DetailView):
     model = Post  # default로 post_detail.html로 저장되게 된다.
+
+    # javascript용 항목 추가
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
+        context['disqus_id'] = f"post-{self.object.id}-{self.object.slug}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        context['disqus_title'] = f"{self.object.slug}"
+
+        return context
     
 # -- ArchiveView
 class PostAV(ArchiveIndexView):
@@ -38,21 +55,19 @@ class PostDAV(DayArchiveView):
 class PostTAV(TodayArchiveView):
     model = Post
     date_field = 'modify_dt'
-    
-# tag용 클래스용 뷰 추가
-class TagCloudTV(TemplateView):
-    template_name = 'taggit/taggit_cloud.html'
 
+#--- FormView   
+class SearchFormView(FormView):
+    form_class = PostSearchForm
+    template_name = 'blog/post_search.html'
 
-class TaggedObjectLV(ListView):
-    template_name = 'taggit/taggit_post_list.html'
-    model = Post                                        # 대상 테이블은 Post 테이블
+    def form_valid(self, form):
+        searchWord = form.cleaned_data['search_word']
+        post_list = Post.objects.filter(Q(title__icontains=searchWord) | Q(description__icontains=searchWord) | Q(content__icontains=searchWord)).distinct()
 
-    def get_queryset(self):
-        return Post.objects.filter(tags__name=self.kwargs.get('tag'))
+        context = {}
+        context['form'] = form
+        context['search_term'] = searchWord
+        context['object_list'] = post_list
 
-    # tagging/taggit_post_list.html 에 넘겨줄 컨텍스트 변수를 추가하기 위해 get.. 메소드를 오버라이딩
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tagname'] = self.kwargs['tag']
-        return context                                  # 템플릿 파일로 전달
+        return render(self.reqest, self.template_name, context) 

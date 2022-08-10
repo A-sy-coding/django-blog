@@ -40,9 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookmark',  # app 추가
     'blog',  # app 추가
-    'taggit.apps.TaggitAppConfig',
-    'taggit_templatetags2', 
-    
 ]
 
 MIDDLEWARE = [
@@ -129,8 +126,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # static 파일을 해당 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-TAGGIT_CASE_INSENSITIVE = True
-TAGGIT_LIMIT = 50
-
+DISQUS_SHORTNAME = 'dajngo-blog'
+DISQUS_MY_DOMAIN = 'http://127.0.0.1:8000'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
