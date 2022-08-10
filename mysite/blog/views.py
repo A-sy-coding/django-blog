@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
@@ -39,8 +39,20 @@ class PostTAV(TodayArchiveView):
     model = Post
     date_field = 'modify_dt'
     
+# tag용 클래스용 뷰 추가
+class TagCloudTV(TemplateView):
+    template_name = 'taggit/taggit_cloud.html'
 
 
+class TaggedObjectLV(ListView):
+    template_name = 'taggit/taggit_post_list.html'
+    model = Post                                        # 대상 테이블은 Post 테이블
 
+    def get_queryset(self):
+        return Post.objects.filter(tags__name=self.kwargs.get('tag'))
 
-
+    # tagging/taggit_post_list.html 에 넘겨줄 컨텍스트 변수를 추가하기 위해 get.. 메소드를 오버라이딩
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tagname'] = self.kwargs['tag']
+        return context                                  # 템플릿 파일로 전달
