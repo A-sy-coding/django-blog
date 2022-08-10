@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookmark',  # app 추가
     'blog',  # app 추가
-    
+    'taggit.apps.TaggitAppConfig',
+    'taggit_templatetags2', 
     
 ]
 
@@ -124,7 +125,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # static 파일을 해당 경로부터 먼저 탐색하게 된다
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+TAGGIT_CASE_INSENSITIVE = True
+TAGGIT_LIMIT = 50
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
