@@ -70,4 +70,4 @@ class SearchFormView(FormView):
         context['search_term'] = searchWord
         context['object_list'] = post_list
 
-        return render(self.reqest, self.template_name, context) 
+        return render(self.request, self.template_name, context) 

@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from taggit.managers import TaggableManager # 추가
+# from taggit.managers import TaggableManager # 추가
 
 class Post(models.Model):
     title = models.CharField(verbose_name='TITLE', max_length=50)
