@@ -6,7 +6,7 @@
     <h1>Blog Search</h1>
     <br>
 
-    <from action="." method="post"> {% csrf_token %}
+    <form action="." method="post"> {% csrf_token %}
         {{ form.as_table }}
         <input type="submit" value="Submit" class="btn btn-primary btn-sm">
     </from>
