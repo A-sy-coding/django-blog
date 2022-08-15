@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookmark',  # app 추가
     'blog',  # app 추가
+    'photo',  # app 추가
 ]
 
 MIDDLEWARE = [
