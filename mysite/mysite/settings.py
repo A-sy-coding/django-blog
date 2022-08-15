@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks', # 폼 장식시 사용
     'bookmark',  # app 추가
     'blog',  # app 추가
     'photo',  # app 추가
@@ -131,3 +132,6 @@ DISQUS_SHORTNAME = 'dajngo-blog'
 DISQUS_MY_DOMAIN = 'http://127.0.0.1:8000'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# LOGIN_URL = '/accounts/login/' --> default 경로
+LOGIN_REDIRECT_URL = '/'

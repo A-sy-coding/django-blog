@@ -6,6 +6,10 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # 인증 URL 3개 추가
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register/', views.UserCreateView.as_view(), name='register'),
+    path('accounts/register/done/', views.UserCreateDoneTV.as_view(), name='register_done'),
     
     # home(main page)
     path('', views.HomeView.as_view(), name = 'home'),
