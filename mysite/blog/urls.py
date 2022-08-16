@@ -29,4 +29,14 @@ urlpatterns = [
 
     # /blog/search/
     path('search/', views.SearchFormView.as_view(), name='search'),
+
+    # 생성, 변경, 수정, 삭제
+    # /blog/add/
+    path('add/', views.PostCreateView.as_view(), name='add'),
+    # /blog/change/
+    path('change/', views.PostChangeLV.as_view(), name='change'),
+    # /blog/99/update/
+    path('<int:pk>/update/', views.PostUpdateView.as_view(), name='update'),
+    # /blog/99/delete/
+    path('<int:pk>/delete/', biews.PostDeleteView.as_view(), name='delete'),
 ]
