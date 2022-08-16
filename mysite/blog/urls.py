@@ -38,5 +38,5 @@ urlpatterns = [
     # /blog/99/update/
     path('<int:pk>/update/', views.PostUpdateView.as_view(), name='update'),
     # /blog/99/delete/
-    path('<int:pk>/delete/', biews.PostDeleteView.as_view(), name='delete'),
+    path('<int:pk>/delete/', views.PostDeleteView.as_view(), name='delete'),
 ]
