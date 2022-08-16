@@ -10,7 +10,7 @@
 ```
 > python -m venv env
 > ./env/Scripts/activate  # 가상환경 접속 (window)
-> source env/bin.activate # 가상환경 접속 (ubuntu)
+> source env/bin/activate # 가상환경 접속 (ubuntu)
 
 > (env) pip install -r requirements.txt
 ```
