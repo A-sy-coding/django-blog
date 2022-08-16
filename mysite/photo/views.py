@@ -59,7 +59,7 @@ class AlbumDelV(OwnerOnlyMixin, DeleteView):
 #--- (InlineFormSet) Create/Update for Album
 class AlbumPhotoCV(LoginRequiredMixin, CreateView):
     model = Album
-    fields = ('name', 'description')\
+    fields = ('name', 'description')
     success_url = reverse_lazy('photo:index')
 
     def get_context_data(self, **kwargs):
@@ -72,7 +72,7 @@ class AlbumPhotoCV(LoginRequiredMixin, CreateView):
         return context
     
     def form_valid(self, form):
-        form.instace.owner = self.request.user
+        form.instance.owner = self.request.user
         context = self.get_context_data()
         formset = context['formset']
         for photoform in formset:
